@@ -1,0 +1,518 @@
+<?php
+//$problemlist = [];
+$problemlist = array();
+$subproblemlist = array();
+$uparrow = "&uarr;";
+$downarrow = "&darr;";
+$rightarrow = "&rarr;";
+
+//This is also defined in functions.js.  If you change it here you have to change it there.
+abstract class ProblemType {
+	const multiplechoice = 0;
+	const calculation = 1;
+	const lesson = 2;
+}
+
+function CreateMultipleChoice ($name, $problemtype, $imgsrc, $problemtext, $problemanswer, $problemchoices, $attemptonefeedbackimgsrc, $attemptonefeedback, $problemexplanationimgsrc, $problemexplanation) {
+	$problem = array();
+	$problem['name'] = $name;
+	$problem['problemtype'] = $problemtype;
+	$problem['imgsrc'] = $imgsrc;
+	$problem['problemtext'] = $problemtext;
+	$problem['problemanswer'] = $problemanswer;
+	$problem['problemchoices'] = $problemchoices;
+	$problem['attemptonefeedback'] = $attemptonefeedback;
+	$problem['attemptonefeedbackimgsrc'] = $attemptonefeedbackimgsrc;
+	$problem['problemexplanation'] = $problemexplanation;
+	$problem['problemexplanationimgsrc'] = $problemexplanationimgsrc;
+	return $problem;
+}
+
+function CreateCalculation ($name, $problemtype, $imgsrc, $problemtext, $problemanswer, $problemtolerance, $attemptonefeedbackimgsrc, $attemptonefeedback, $problemexplanationimgsrc, $problemexplanation) {
+	$problem = array();
+	$problem['name'] = $name;
+	$problem['problemtype'] = $problemtype;
+	$problem['imgsrc'] = $imgsrc;
+	$problem['problemtext'] = $problemtext;
+	$problem['problemanswer'] = $problemanswer;
+	$problem['problemtolerance'] = $problemtolerance;
+	$problem['attemptonefeedback'] = $attemptonefeedback;
+	$problem['attemptonefeedbackimgsrc'] = $attemptonefeedbackimgsrc;
+	$problem['problemexplanation'] = $problemexplanation;
+	$problem['problemexplanationimgsrc'] = $problemexplanationimgsrc;
+	return $problem;
+}
+
+function CreateLesson ($name, $problemtype, $imgsrc, $lessontext) {
+	$problem = array();
+	$problem['name'] = $name;
+	$problem['problemtype'] = $problemtype;
+	$problem['imgsrc'] = $imgsrc;
+	$problem['lessontext'] = $lessontext;
+	return $problem;
+}
+//Begin section 1
+$ProblemName = "1.  Resistance";
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/CirculatoryModel.png";
+$ProblemText = '<p>The basic equation of hemodynamics is <b><i>Ohm’s Law</i></b>: P<sub>1</sub> - P<sub>2</sub> = Q x R</p> <p>What is the resistance, R, to flow through organ #3 in mmHg/(L/min) with the model horizontal?</p>
+<p><b>Enter you answer on the upper right and Evaluate.</b></p>';
+$ProblemAnswer = '50';
+$ProblemTolerance = '5';
+$AttmeptOne = "<b>Nope.</b>  P<sub>2</sub> = Q x R.  Note that with the model horizontal (i.e. lying down) that the arterial and venous pressure is basically the same for all circulatory beds.</p>";
+$AttmeptOneImgSrc = "./images/CirculatoryModel.png";
+$ExplanationImgSrc = "./images/CirculatoryModel.png";
+$Explanation = "<p>P<sub>1</sub> - P<sub>2</sub> = Q<sub>3</sub> x R<sub>3</sub></br>R3 = (P<sub>1</sub> - P<sub>2</sub>)/Q<sub>3</sub></p>
+<p>(P<sub>1</sub> - P<sub>2</sub>) = MAP - CVP = 100 - 0 = 100 mm Hg</br>
+Q<sub>3</sub> = 2.0 L/min</br>
+R<sub>3</sub> = 100/2.0 = 50 mmHg/(L/min) </p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = "1.  Resistance";
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/CirculatoryModel.png";
+$ProblemText = '<p>Now its your turn:  What is the total peripheral resistance (TPR) with the model horizontal?</p><p><b>Please enter your answer and Evaluate.</b></p>';
+$ProblemAnswer = '20';
+$ProblemTolerance = '2';
+$AttmeptOne = "<p><b>Sorry.  No.</b>  In order to calculate the TPR (i.e. the resistance to flow through the entire body), 
+you need to know the values for Ohm's Law for the entire system and use them in the equation.</p>
+<p>You already know the pressures (100 mmHg and 0 mmHg).  The flow through the body is the cardiac output (CO).</p>";
+$AttmeptOneImgSrc = "./images/CirculatoryModel.png";
+$ExplanationImgSrc = "./images/CirculatoryModel.png";
+$Explanation = "<p>P<sub>1</sub> - P<sub>2</sub> = Q x R</br>MAP-CVP = CO x TPR</br>TPR = (MAP-CVP)/CO</p>
+<p>(MAP-CVP) = 100 - 0 = 100mm Hg</br>CO = total flow out of heart = Σ(Q1+Q2+Q3+Q4+Q5) = 
+0.5+1.0+2.0+1.0+0.5 = 5 L/min<p><p>TPR = 100/5 = 20 mmHg/L/min</br> Note that the total 
+resistance is less than the resistance of any single flow channel in the system (this can be seen 
+by examining the equation describing the total resistance of a set of parallel resistances).</p>
+<p>You can also calculate TPR if you know the resistance of each of the parallel flow paths:</br>
+1/R<sub>total</sub> = 1/<sub>TPR</sub> = 1/R<sub>1</sub> + 1/R<sub>2</sub> + 1/R<sub>3</sub>
+1/R<sub>4</sub> + 1/R<sub>5</sub>.</br>This is, however, a more laborious solution in this case.</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+array_push($problemlist,$subproblemlist);
+$subproblemlist = array();
+//End section 1
+
+
+//Begin section 2
+$ProblemName = "2.  Pressures When Upright";
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/CirculatoryModel.png";
+$ProblemText = '<p>The pressure anywhere in the circulation, P, is equal to P<sub>heart</sub> + P<sub>hydrostatic</sub> where 
+P<sub>hydrostatic</sub> = ρ x g x h (ρ is the density of the fluid, g the gravitational constant, and 
+h the height of the column of fluid; ρxgxh for 1 cm blood = 0.75 mmHg).</p>
+<p>When the individual is lying down the pressure at point "a" is 100 mmHghe pressure, the pressure at point "v" is 0 mmHg, and the ΔP across organ #5, (P<sub>a</sub> - P<sub>v</sub>), is 100 mmHg.</p>
+<p>(Yes, I know.  The CVP isn\'t "0".  But it\'s close enough to use 0  for the purposes of these calculations)</p>
+<p>With the individual standing, what is the pressure at point "a"?  Assume the pressure at the level of the heart does not change.</p>
+<p><b>Enter your answer in the in the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '145';
+$ProblemTolerance = '5';
+$AttmeptOne = "<p><b>That's incorrect.</b>.</p> <p>In my demonstration problem, the height of the column of blood pushing down on point \"a\" was 0 cm 
+because the individual was lying down. Here it's 60 cm.  So you'll have to add the pressure generated by this column onto the arterial pressure at 
+the level of the heart.</p>";
+$AttmeptOneImgSrc = "./images/CirculatoryModel.png";
+$ExplanationImgSrc = "./images/CirculatoryModel.png";
+$Explanation = "<p>Point \"a\" is 60 cm below the heart and hence there is a vertical column of blood creating a pressure at this point.</p>
+<p>P<sub>hydrostatic</sub> = 60 cm  of blood x 0.75 mmHg/cm blood = 45 mmHg</br>
+P<sub>heart</sub> = 100 mmHg</br>
+P at point \"a\" = P<sub>heart</sub> + P<sub>hydrostatic</sub> = 100 + 45 = 145 mmHg.</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '2.  Pressures When Upright';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/CirculatoryModel.png";
+$ProblemText = '<p>With the individual standing, what is the pressure at point "v"?
+<p><b>Enter your answer at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '45';
+$ProblemTolerance = '5';
+$AttmeptOne = "<p><b>Hmmm...  I don't think we're getting the hang of this, yet</b></p>
+<p>With the individual lying down the height of the column of blood pushing down on point \"v\" was 0 cm because the individual was lying down.  Here it's 60 cm.  
+So you'll have to add the pressure generated by this column onto the arterial pressure at the level of the heart.</p>";
+$AttmeptOneImgSrc = "./images/CirculatoryModel.png";
+$ExplanationImgSrc = "./images/CirculatoryModel.png";
+$Explanation = "<p>Point \"v\" is 60 cm below the heart and hence there is a vertical column of blood creating a pressure at this point.</p>
+<p>P<sub>hydrostatic</sub> = 60 cm  of blood x 0.75 mmHg/cm blood = 45 mmHg</br>
+P<sub>heart</sub> = 100 mmHg</br>
+P at point \"v\" = P<sub>heart</sub> + P<sub>hydrostatic</sub> = 0 + 45 = 45 mmHg.</p>";
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '2.  Pressures When Upright';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/CirculatoryModel.png";
+$ProblemText = '<p>So P<sub>1</sub> is 145 mmHg and P<sub>2</sub> is 45 mmHg.  <b>What is the ΔP across organ 5?</b></p>
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '100';
+$ProblemTolerance = '0';
+$AttmeptOne = "<p>The ΔP is P<sub>1</sub> - P<sub>2</sub>.</p><p>Please go back and try again.</p>";
+$AttmeptOneImgSrc = "./images/CirculatoryModel.png";
+$ExplanationImgSrc = "./images/ColumnsPushingDown.png";
+$Explanation = "<p>(P<sub>a</sub> - P<sub>v</sub>) = 145 - 45 = 100 mmHg.</p>
+<p>Thus, in going from recumbent to erect there is 
+an increase in absolute pressure below the heart (e.g., 
+in most of the body), although there is no change in 
+the pressure gradient producing flow.  However, the increase in 
+absolute pressure means that the pressure in the capillaries will 
+be greater, favoring filtration of fluid OUT of the capillaries and 
+hence favoring edema formation.</p>
+<p>NOTE: How to think about vertical columns above and below the heart.  
+The model system we are considering has a heart and circulation that function together to produce a pressure at 
+the aorta (MAP) equal to 100 mm Hg.  While the model is recumbent, the pressure at the arterial end of each organ 
+is 100 mm Hg (remember, the pressure drop along the arteries is quite small).</p>
+<p>When the model is erect there is 
+clearly a vertical column of blood in both the arterial compartment and the venous compartment; the column above 
+the heart is at most 40 cm high and the column below the heart is at most 60 cm high.  However, with the model 
+vertical, the pressure at the aorta is still 100 mm Hg.  That pressure is regulated by your reflexes.</p>
+<p>As we proceed down from the aorta to point 
+\"a\" the pressure increases because there is an additional vertical column of fluid of increasing height above 
+each point we consider.   At point \"a\" the hydrostatic pressure from this vertical column is 45 mm Hg 
+(corresponding to the pressure created by the 60 cm column of blood from the aorta to that point).  The 40 cm 
+column that is present above the heart does not add to this because the 100 mm Hg pressure at the aorta includes 
+the effect of that column (and the pressure generated by the heart).</p>
+<p>If we look above the heart, the pressure there declines by 0.75 mmHg for each cm of height.  
+Hence the arterial pressure above the heart is less than 100 mmHg.</p>
+<p>Note also that though the pressures change when a person goes from lying down to erect 
+that ΔP does <b>not</b> change and that there is, therefore, <i>no change in blood flow</i>.</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '2.  Pressures When Upright';
+$ProblemType = ProblemType::lesson;
+$ImgSrc = "./images/Congestive Heart Failure Swelling in Legs.png";
+$LessonText = "<p>So what's the point of this exercise?  Glad you asked.</p>
+<p>Shown above on the top right are typical complaints and physical exam findings from a <i>congestive heart failure</i> patient.  
+Particularly note that the patient complains of swelling in her legs.  Why would this be?</p>";
+
+$NewProblem = CreateLesson($ProblemName, $ProblemType, $ImgSrc, $LessonText);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '2.  Pressures When Upright';
+$ProblemType = ProblemType::lesson;
+$ImgSrc = "./images/ideal capillary.png";
+$LessonText = "<p>Note the behaviour of an \"ideal\" capillary (lower right).  The hydrostatic pressure inside the capillary pushes water out 
+of the capillary from high pressure in the lumen to low pressure in the tissues (<b>filtration</b>).  This is opposed 
+by the tendency of the high osmolarity in the capillary (known as \"oncotic pressure\") to draw water in (<b>reabsorbtion</b>).  
+Ordinarily filtration is only slightly greater than reabsorbtion, leading to the formation of lymph in the tissues.<p>
+
+<p>The capillary pressure in the patient's legs is HIGHER than in the other parts of her body due to the added pressure 
+of the columns of blood pushing down on her feet and ankles.  As a result, this is where excess filtration takes place 
+leading to edema (swelling due to fluid accumulation in the tissues).  As a result, \"She can't fit into her shoes\".</p>
+
+<p>The results of this exercise demonstrate why congestive heart failure patients are more likely to show edema in their lower legs.</p>";
+
+$NewProblem = CreateLesson($ProblemName, $ProblemType, $ImgSrc, $LessonText);
+array_push($subproblemlist, $NewProblem);
+array_push($problemlist,$subproblemlist);
+$subproblemlist = array();
+//end section 2
+
+
+
+//begin section 3
+$ProblemName = '3.  Radius and Resistance';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/Resistance.png";
+$ProblemText = '<p>The resistance to flow posed by a blood vessel is determined by a number of parameters: length, 
+radius, and the viscosity of the fluid flowing through the vessel.  Physiological changes in flow resistance 
+are brought about by changes in the radius of the vessel.</p>
+<p>What change in arteriolar radius is required to produce a 50% increase in arteriolar resistance?  (The new radius will be ____% 
+of the old one.)</p>
+<p><b>Enter your answer at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '90';
+$ProblemTolerance = '5';
+$AttmeptOne = "<p><b>Sorry, that's incorrect.</b></p> <p>The resistance proportional to 1/radius<sup>4</sup>.</p>";
+$AttmeptOneImgSrc = "./images/Resistance.png";
+$ExplanationImgSrc = "./images/Resistance.png";
+$Explanation = "<p>R is proportional to 1/radius<sup>4</sup>.</p>
+<p>We can write:</br>
+R = constant/r<sup>4</sup></br>
+R1 = k/r<sub>1</sub><sup>4</sup> = 100</br>
+R2 = k/r<sub>2</sub><sup>4</sup> = 150 (a 50% increase)</br>
+R1/R2 = (k/r<sub>1</sub><sup>4</sup>)/(k/r<sub>2</sub><sup>4</sup>) = 100/150</br>
+<sub>2</sub><sup>4</sup>/r<sub>1</sub><sup>4</sup> = .667</br>
+<sub>2</sub> = .90r<sub>1</sub></br></p>
+<p>This one is pretty hard and you will not be asked to do this calculation on an exam.  However, 
+you ARE expected to note the take home point of the exercise:  Because the radius term is raised 
+to the 4th power, only a very small change in radius is required to produce a proportionately 
+much larger change in resistance.  The physiological control of resistance to blood flow is both powerful and 
+exquisit.</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+array_push($problemlist,$subproblemlist);
+$subproblemlist = array();
+//end section 3
+
+//section 4
+$ProblemName = '4.  Compliance';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/Compliance.png";
+$ProblemText = '<p>Let\'s do another one.</p>
+<p>The figure above illustrates the pressure-volume relationships for a vein and a large artery. 
+Calculate the compliance of an artery at normal P<sub>artery</sub>.  Give me a value to three numbers 
+after the decimal.</p>
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '0.013';
+$ProblemTolerance = '0.01';
+$AttmeptOne = "<p><b>Nope</b>. The compliance is the slope of the line over the physiological range (highlighted in red above). 
+Go back and see if you can get it, now.</p>";
+$AttmeptOneImgSrc = "./images/Compliance Aorta.png";
+$ExplanationImgSrc = "./images/Compliance Aorta.png";
+$Explanation = "<p>Normal pressure range for the aorta is 60 - 120 mmHg</p>
+<p>C<sub>Aorta</sub> = ΔV /ΔP = 0.8 vol units/60 mm Hg = 0.013 vol units/mmHg</p>";
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+array_push($problemlist,$subproblemlist);
+$subproblemlist = array();
+
+//End section 4
+
+//Begin section 5
+
+$ProblemName = '5.  Case of Dehydration';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/dehydration.png";
+$ProblemText = '<p>Now let\'s take a more practical example.  Note the this is only <em>slightly</em> more practical.  Don\'t take the numbers too seriously in that the actual changes aren\'t quite this extreme.</p>
+
+<p>
+A patient comes into the ER, apparently suffering from dehydration.  Assume that the plasma osmolarity is 320 mOsm/L (normal is about 300 mOsm/L).
+</p>
+
+<p> What is the osmolarity inside the red blood cells?
+
+<p><b>Enter the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '320';
+$ProblemTolerance = '0';
+$AttmeptOne = "<b>Nope.  Remember that cells can\'t stand to have water gradients across their membranes.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/dehydration.png";
+$ExplanationImgSrc = "./images/dehydration.png";
+$Explanation = "<p>Remember that the osmolarity inside and outside the cells must be the same.  Otherwise, the cell volume would be changing.  
+Obviously this is not the case as most cells are at a constant volume unless you are in the act of perturbing the system.</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '5.  Case of Dehydration';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/dehydration.png";
+$ProblemText = '<p>The doctor administers 1 L of sterile water (Don\'t actually do this, folks.  It would be bad for your patient and your practice.)
+Assume the patient\'s initial blood volume was 5 L and 2 L of it was red blood cells and the rest was plasma.</p>
+<p>If the initial osmolarity was 320 mOsm/L, what is the new plasma osmolarity?
+
+<p><b>Enter the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '267';
+$ProblemTolerance = '40';
+$AttmeptOne = "<b>No.  Remember that water equilibrates very quickly across the membrane of the red blood cells.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/dehydration.png";
+$ExplanationImgSrc = "./images/dehydration.png";
+$Explanation = "<p>Lets calculate it.  The initial blood volume (cells and plasma) was 5 L:</p>
+<p>5 L x 320 mOsm/L = 1600 mOsm total in the blood</p>
+<p>Now we add one more liter with no additional solute:</p>
+5 L + 1 L = 6 L</br>
+1600 mOsm/6 L = 266.7 mOsm/L</br>
+<p>Yes, I know.  We only added the water to the plasma.  But the water very quickly equilibrates across the membrane diluting the cellular contents until the osmolarity is the same on both sides.  So you must account for the particles in both the plasma and the red blood cells.</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '5.  Case of Dehydration';
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/dehydration.png";
+$ProblemText = '<p>Assuming that the total RBC volume was 2 L prior to water administration, what is the new RBC volume?  Remember that the osmolarity dropped from 
+320 to 267 mOsm/L.
+</p>
+  
+A.  1.8 L<br />
+B.  2.0 L<br />
+C.  2.4 L<br />
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'C';
+$ProblemChoices = 'ABC';
+$AttmeptOne = "<b>No.  Didn't I just say that we added water to the plasma and that it would quickly equilibrate?  That means it would <i>enter</i> the cells, right?
+Better recheck the potential answers and try again.</b>";
+$AttmeptOneImgSrc = "./images/dehydration.png";
+$ExplanationImgSrc = "./images/dehydration.png";
+$Explanation = "<p>First, its obvious that the cells will swell in order for the osmolarity to drop from 320 mOsm/L to 266.7 mOsm/L.  That automatically eliminates 1.8 L and 2 L (which are less than or equal to the initial value of 2 L).</p>
+<p>Getting beyond this common sense approach, you should also be able to calculate this:</p>
+<p>2 L x 320 mOsm/L = 640 mOsm within the RBCs before water infusion.</p>
+<p>The final osmolarity inside the RBCs is 266.7 mOsm/L.  This change in osmolarity was cause by movement of water across the membrane, thus diluting the cellular contents.  Therefore the new volume must be:</p>
+<p>640 mOsm/(266.7 mOsm/L)=2.4 L</p>";
+
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '5.  Case of Dehydration';
+$ProblemType = ProblemType::calculation;
+$ImgSrc = "./images/dehydration.png";
+$ProblemText = '<p>The doctor quickly realizes his mistake.  He decides that in order to correct it, he should infuse 1 L of 50o mM sucrose.  Sucrose cannot cross cell membranes.
+</p>
+<p>Assuming that the blood volume is 6 L and the plasma osmolarity is 266.7 mOsm/L, what will the plasma osmolarity be after infusion of sucrose?</p>  
+
+<p><b>Enter the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = '300';
+$ProblemTolerance = '19';
+$AttmeptOne = "<b>Nope.  Figure the total mOsm in the blood and divide by the new blood volume.</b>";
+$AttmeptOneImgSrc = "./images/dehydration.png";
+$ExplanationImgSrc = "./images/dehydration.png";
+$Explanation = "<p>Here's the calculation:</p>
+Initial mOsm in the blood:</br>
+266.7 mOsm/L X 6 L = 1600 mOsm</br>
+<p>We have added:</p>
+500 mOsm/L X 1 L = 500 mOsm</br>
+<p>The new number of mOsm is:</p>
+1600 + 500 = 2100 mOsm</br>
+<p>The new blood volume is 7 L so:</p>
+2100 mOsm/7 L = <b><i>300 mOsm/L</i></b></br>
+<p>So we're back to normal</p>";
+
+$NewProblem = CreateCalculation($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemTolerance, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+array_push($problemlist,$subproblemlist);
+$subproblemlist = array();
+//end section 5
+
+//begin section 6
+$ProblemName = '6.  Osmolarity and the Kidney';
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/kidney1.png";
+$ProblemText = '<p>Osmotic movement of water is very important physiologically and pathophysiologically.  For instance, it is particularly important for correct formulation of urine in the kidney.  The osmotic gradient between the fluid in the lumen of the renal nephron and the fluid in the renal medulla drives water movement across the epithelial wall of the nephron which separates them.
+</p>
+
+<p>
+Below is a picture of such a epithelial wall.  The lumen of the nephron, where urine is produced, is on the right (B).  The renal medulla is on the left (A).  If I tell you that the osmotic gradient is responsible for concentrating the urine (i.e. it decreases the urine volume) which side of this membrane will have the higher osmolarity?
+</p>
+
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'A';
+$ProblemChoices = 'AB';
+$AttmeptOne = "<b>Sorry.  I'm sure you'll get it right this time.</b>";
+$AttmeptOneImgSrc = "./images/kidney1.png";
+$ExplanationImgSrc = "./images/kidney1a.png";
+$Explanation = "<p>In order to concentrate the urine (i.e. decrease the urine volume), water must move from the nephron into the renal medulla.   It therefore flows down its concentration gradient from low osmolarity to high osmolarity.</p>";
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '6.  Osmolarity and the Kidney';
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/kidney2.png";
+$ProblemText = '<p>Sickle cell anemia is a disease of the red blood cells which you will be learning a great deal more about from the molecular biologists here at Rush.  Among the symptoms of the disease is an inability to concentrate urine.
+</p>
+
+<p>
+Which of the situations depicted below is most likely to represent the situation in the kidney of a sickle cell patient?
+</p>
+
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'B';
+$ProblemChoices = 'AB';
+$AttmeptOne = "<b>Yeah, this was a tough one.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/kidney2.png";
+$ExplanationImgSrc = "./images/kidney2a.png";
+$Explanation = "<p>The urine is less concentrated in the sickle cell patient.  That means that there is more fluid and less solute - i.e. that the osmolarity of the urine in the nephron is lower.</p>
+
+<p>As it turns out, the sickle cell patient can’t concentrate his/her urine because they cannot maintain a high enough osmolarity in the renal medulla.  This limits the movement of water out of the nephron because the water concentration is too high in the medulla.  The reasons for this inability to generate an osmotic gradient are not well understood.  I will be glad to discuss it with you but the explanation will likely be more meaningful after you have had cardiovascular and renal physiology.</p>
+<p>Please note that as far as the physiology is concerned I do <b><i>not</b></i> expect you to know about sickle cell anemia for this class.  I <b><i>do</i></b> expect you to be able to predict the consequences of an increased or decreased osmolarity in terms of water movement in a system.</p>";
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+array_push($problemlist,$subproblemlist);
+$subproblemlist = array();
+//End of section 6
+
+//Begin section 7
+$ProblemName = '7.  Osmolarity in the Capillaries';
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/capillary1.png";
+$ProblemText = '<p>A "typical" capillary is depicted below with the hydrostatic pressure on each end.
+</p>
+
+<p>
+  In which direction does blood flow through the capillary?
+</p>
+A.  Right to left<br />
+B.  Left to right<br />
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'A';
+$ProblemChoices = 'AB';
+$AttmeptOne = "<b>Nope.  Fluid flows from high pressure to low pressure.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/capillary1.png";
+$ExplanationImgSrc = "./images/capillary1a.png";
+$Explanation = "<p>Fluid always flows from high pressure to low pressure.</p>";
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '7.  Osmolarity in the Capillaries';
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/capillary2.png";
+$ProblemText = '<p>
+Now, what if I also told you that the capillary wall is permeable to water and that the tissue hydrostatic pressure outside the capillary in the interstitium is lower than the hydrostatic pressure in the lumen of the capillary?
+</p>
+
+<p>At which point is the flow of water across the capillary wall (orange arrows) the greatest?
+</p>
+
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'B';
+$ProblemChoices = 'AB';
+$AttmeptOne = "<b>Sorry.  That\'s incorrect.  Fluid flows from high pressure to low pressure.  The bigger the pressure difference, the higher the rate of flow.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/capillary2.png";
+$ExplanationImgSrc = "./images/capillary2.png";
+$Explanation = "<p>The flow of water out of the capillary is highest at the arterial end where the hydrostatic pressure is greatest.  The pressure difference across the wall here is 25-5 or 20 mmHg.  The pressure difference across the wall on the venous side is 15-5 or 10 mmHg.  Thus there is less driving force for water movement at the venous end.  This process is known as filtration and you will learn more about it in cardiovascular physiology.</p>";
+
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = "7.  Osmolarity in the Capillaries";
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/capillary3.png";
+$ProblemText = '<p>
+Opposing the process of filtration in a capillary is the process of reabsorption. Water is reabsorbed when it moves from the tissues back into the capillary lumen (purple arrows).  The process is driven by a difference in the osmolarity between the tissues (i.e. the interstitial space) and the capillary lumen.
+</p>
+
+<p>Where is the osmolarity highest??
+</p>
+A.  in the interstitium</br>
+B.  in the capillary lumen</br>
+
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'B';
+$ProblemChoices = 'AB';
+$AttmeptOne = "<b>Sorry.  Only one choice left.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/capillary3.png";
+$ExplanationImgSrc = "./images/capillary3.png";
+$Explanation = "<p>The osmolarity must be higher in the capillary lumen in order for water to move down its concentration gradient.  The difference in osmolarity across the capillary wall is, in fact, very small (only about 0.5%).  It is due to the presence of proteins such as albumin in the blood which cannot cross the capillary wall.  This difference is small but extremely important in capillary fluid dynamics.  The osmotic pressure contributed by non-diffusable protein molecules is known as the oncotic pressure.  That is, the oncotic pressure is higher in the capillary lumen.  We will learn more about this in the cardiovascular section.</p>";
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+$ProblemName = '7.  Osmolarity in the Capillaries';
+$ProblemType = ProblemType::multiplechoice;
+$ImgSrc = "./images/capillary3.png";
+$ProblemText = '<p>
+Given the above, you have a patient who is malnourished and is therefore not producing proteins such as albumin at a rate necessary to maintain its normal concentration in the blood.  You would expect:
+</p>
+A.  Less fluid in the tissues resulting in apparent dehydration</br>
+B.  No change in the amount of fluid in the tissues</br>
+C.  Increased fluid in the tissues resulting in swelling</br>
+
+<p><b>Click on the correct answer in the bar at the upper right hand corner of the page and Evaluate.</b></p>';
+$ProblemAnswer = 'C';
+$ProblemChoices = 'ABC';
+$AttmeptOne = "<b>That's incorrect.  Remember that water is usually flowing down its concentration gradient.  Changing albumin concentration will change this gradient.  Try again.</b>";
+$AttmeptOneImgSrc = "./images/capillary3.png";
+$ExplanationImgSrc = "./images/capillary3.png";
+$Explanation = "<p>You would expect tissue swelling.  Decreased albumin in the capillary lumen leads to decreased osmolarity.  That means increased water concentration.  Since in the process of reabsorption the water flows from the interstitium to the capillary down its concentration gradient, increasing water concentration in the capillary lumen will impede this process.  Less reabsorption means that fluid accumulates in the tissues.  This is known as edema.  It is an extremely common symptom of a variety of diseases.  It appears when the fluid balance across the capillary wall which is illustrated below is disrupted in some way.  You will learn much more about edema in the cardiovascular lectures.</p>";
+$NewProblem = CreateMultipleChoice($ProblemName, $ProblemType, $ImgSrc, $ProblemText, $ProblemAnswer, $ProblemChoices, $AttmeptOneImgSrc, $AttmeptOne, $ExplanationImgSrc, $Explanation);
+array_push($subproblemlist, $NewProblem);
+
+array_push($problemlist,$subproblemlist);
+
+?>
